@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+</style>
+{% endblock %}
+
+{% block navbar %}
+{% include "partials/navbar.html" %}
+{% endblock %}
+
+{% block content %}
+<main class="min-h-screen bg-slate-50 p-6 md:p-10 font-sans">
+    <div class="max-w-3xl mx-auto">
+        
+        <!-- Header -->
+        <div class="mb-8">
+            <a href="{% url 'paciente' cliente.id %}" class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800 mb-4 transition-colors">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Voltar para Prontuário
+            </a>
+            <h1 class="text-3xl font-bold text-slate-900">Triagem Cinético-Funcional</h1>
+            <p class="text-slate-500 mt-2">Avaliação de risco e coleta de sinais vitais iniciais do paciente <strong class="text-slate-700">{{ cliente.nome_animal }}</strong>.</p>
+        </div>
+
+        <!-- Form -->
+        <form method="post" action="{% url 'triagem' cliente.id %}" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 space-y-8">
+            {% csrf_token %}
+
+            <!-- Seção Sinais -->
+            <div>
+                <h2 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Sinais Biológicos / Antropometria</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Frequência Cardíaca (bpm)</label>
+                        <input type="number" name="frequencia_cardiaca" class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="Ex: 80">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Frequência Respiratória (ipm)</label>
+                        <input type="number" name="frequencia_respiratoria" class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="Ex: 16">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Temperatura (°C)</label>
+                        <input type="number" step="0.1" name="temperatura" class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="Ex: 36.5">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Peso (kg)</label>
+                        <input type="number" step="0.1" name="peso" class="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="Ex: 75.0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção Avaliação -->
+            <div>
+                <h2 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Queixa e Observação</h2>
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Queixa Principal e Nível de Dor (Escala EVA de 0 a 10)</label>
+                        <textarea name="queixa" rows="2" class="w-full border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="Ex: Dor aguda no ombro direito ao elevar o braço. EVA 7/10." required></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Observações Gerais e Padrão de Movimento</label>
+                        <textarea name="observacao" rows="3" class="w-full border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="Ex: Paciente com marcha claudicante, edema visível, redução da ADM..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-2">
+                <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-3.5 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
+                    Calcular Classificação de Risco
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}

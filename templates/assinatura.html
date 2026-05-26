@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Planos - FisioSmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{ --energia:#996644; }
+    body{ font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    .font-tech{ font-family: 'Space Grotesk', sans-serif; }
+    .energia-border{ border-color: rgba(153,102,68,0.75); box-shadow: 0 0 0 1px rgba(153,102,68,0.25), 0 0 22px rgba(153,102,68,0.18); }
+    .energia-badge{ color: #5b3a20; background: rgba(153,102,68,0.12); border: 1px solid rgba(153,102,68,0.35); }
+    .metal{ background: linear-gradient(135deg, #996644 0%, #b8875a 30%, #d0a07a 60%, #996644 100%); }
+    .metal-hover:hover{ box-shadow: 0 14px 40px rgba(153,102,68,0.22); transform: translateY(-1px); }
+    .underline-glow{ box-shadow: 0 0 16px rgba(153,102,68,0.35); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+  <div class="pointer-events-none fixed inset-0 -z-10" aria-hidden="true">
+    <div class="absolute top-[-220px] left-1/2 -translate-x-1/2 w-[720px] h-[720px] rounded-full bg-[#996644]/10 blur-3xl"></div>
+  </div>
+
+  <header class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+    <div class="flex items-center justify-between">
+      <a href="{% url 'login' %}" class="inline-flex items-center gap-3">
+        <span class="w-10 h-10 rounded-2xl bg-white/60 border border-slate-200 flex items-center justify-center shadow-sm">
+          <svg viewBox="0 0 24 24" class="w-5 h-5 text-[#996644]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z" />
+          </svg>
+        </span>
+        <span class="font-tech font-semibold tracking-tight">FisioSmart</span>
+      </a>
+
+      <div class="text-sm text-slate-600">
+        <span class="font-medium text-slate-800">Assinatura</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
+    <section class="text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-200 bg-white/70 text-xs font-medium text-slate-600">
+        <span class="w-2 h-2 rounded-full bg-[#996644] shadow-[0_0_18px_rgba(153,102,68,0.35)]"></span>
+        Escolha seu plano
+      </div>
+      <h1 class="mt-5 font-tech text-3xl sm:text-4xl font-semibold tracking-tight">
+        Planos SaaS para clínicas e operadores
+      </h1>
+      <div class="mx-auto mt-3 w-56 h-[3px] rounded-full bg-[#996644]/90 underline-glow"></div>
+      <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
+        Interface premium, experiência limpa e energia #996644 apenas onde faz sentido: ações principais e destaque do plano.
+      </p>
+    </section>
+
+    <section class="mt-10 grid lg:grid-cols-2 gap-6">
+      <!-- Plano Inicial -->
+      <div class="bg-white/80 border border-slate-200 rounded-3xl p-7 shadow-sm">
+        <div class="flex items-center justify-between gap-3">
+          <h2 class="font-tech text-xl font-semibold text-slate-900">Plano Inicial</h2>
+          <div class="text-xs font-semibold text-slate-600 px-3 py-1 rounded-full border border-slate-200 bg-white/60">
+            Autônomo
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <div class="flex items-baseline gap-2">
+            <div class="font-tech text-4xl font-semibold text-slate-900">R$ 29,90</div>
+            <div class="text-slate-500">/mês</div>
+          </div>
+          <div class="mt-1 text-sm text-slate-600">Acesso essencial para 1 fisioterapeuta.</div>
+        </div>
+
+        <ul class="mt-6 space-y-3 text-sm text-slate-700">
+          <li class="flex gap-3 items-start">
+            <span class="mt-0.5 inline-flex w-5 h-5 rounded-lg bg-slate-900/5 border border-slate-200 items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-slate-800" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            Prontuário inteligente RAG
+          </li>
+          <li class="flex gap-3 items-start">
+            <span class="mt-0.5 inline-flex w-5 h-5 rounded-lg bg-slate-900/5 border border-slate-200 items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-slate-800" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            Triagem automatizada via Gemini 2.5 Flash
+          </li>
+          <li class="flex gap-3 items-start">
+            <span class="mt-0.5 inline-flex w-5 h-5 rounded-lg bg-slate-900/5 border border-slate-200 items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-slate-800" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            Relatórios clínicos simplificados
+          </li>
+        </ul>
+
+        <div class="mt-7">
+          <a href="#" class="metal metal-hover group relative inline-flex w-full items-center justify-center px-6 py-3.5 rounded-2xl text-white font-semibold overflow-hidden transition-all duration-300">
+            <span class="relative z-10 inline-flex items-center gap-2">
+              Assinar este Plano
+              <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </span>
+            <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+          </a>
+          <div class="mt-3 text-xs text-slate-500 text-center">Checkout (em breve). Integre com provedor de pagamento.</div>
+        </div>
+      </div>
+
+      <!-- Plano Destaque -->
+      <div class="bg-white/80 border border-slate-200 rounded-3xl p-7 shadow-sm relative transform transition-transform hover:-translate-y-1 energia-border">
+        <div class="absolute -top-3 left-6 energia-badge text-xs font-semibold px-3 py-1 rounded-full">
+          Mais Escolhido
+        </div>
+
+        <div class="flex items-center justify-between gap-3 pt-6">
+          <h2 class="font-tech text-xl font-semibold text-slate-900">Plano Clínica Futurista</h2>
+          <div class="text-xs font-semibold text-slate-600 px-3 py-1 rounded-full border border-slate-200 bg-white/60">
+            Equipe
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <div class="flex items-baseline gap-2">
+            <div class="font-tech text-4xl font-semibold text-slate-900">R$ 149,90</div>
+            <div class="text-slate-500">/mês</div>
+          </div>
+          <div class="mt-1 text-sm text-slate-600">Para múltiplos operadores e casos complexos.</div>
+        </div>
+
+        <ul class="mt-6 space-y-3 text-sm text-slate-700">
+          <li class="flex gap-3 items-start">
+            <span class="mt-0.5 inline-flex w-5 h-5 rounded-lg bg-[#996644]/10 border border-[#996644]/25 items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-[#996644]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            Operadores ilimitados
+          </li>
+          <li class="flex gap-3 items-start">
+            <span class="mt-0.5 inline-flex w-5 h-5 rounded-lg bg-[#996644]/10 border border-[#996644]/25 items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-[#996644]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            Suporte ao Gemini 2.5 Pro para casos complexos
+          </li>
+          <li class="flex gap-3 items-start">
+            <span class="mt-0.5 inline-flex w-5 h-5 rounded-lg bg-[#996644]/10 border border-[#996644]/25 items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-[#996644]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            Análise biomecânica e histórico cinesiológico persistente
+          </li>
+          <li class="flex gap-3 items-start">
+            <span class="mt-0.5 inline-flex w-5 h-5 rounded-lg bg-[#996644]/10 border border-[#996644]/25 items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-[#996644]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            Esteira de mídias (PDF/vídeo) com organização e contexto
+          </li>
+        </ul>
+
+        <div class="mt-7">
+          <a href="#" class="metal metal-hover group relative inline-flex w-full items-center justify-center px-6 py-3.5 rounded-2xl text-white font-semibold overflow-hidden transition-all duration-300">
+            <span class="relative z-10 inline-flex items-center gap-2">
+              Escolher Plano & Checkout
+              <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </span>
+            <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+          </a>
+          <div class="mt-3 text-xs text-slate-500 text-center">Checkout (em breve). Integração Stripe/Provider.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-10">
+      <div class="bg-white/70 border border-slate-200 rounded-3xl p-6 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <div class="font-tech font-semibold text-slate-900 text-lg">Acesso por perfil</div>
+            <div class="text-sm text-slate-600 mt-1">
+              Operadores acessam o dashboard de pacientes e chat RAG. Apenas DONO acessa assinatura e faturamento.
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <a href="{% url 'clientes' %}" class="inline-flex items-center justify-center px-5 py-2.5 rounded-2xl border border-slate-200 bg-white/60 hover:bg-white transition-colors text-sm font-semibold text-slate-700">
+              Ir para Dashboard
+            </a>
+            <a href="{% url 'login' %}" class="inline-flex items-center justify-center px-5 py-2.5 rounded-2xl metal hover:opacity-95 text-white font-semibold transition-colors text-sm">
+              Login
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex flex-col md:flex-row gap-6 md:items-center justify-between">
+      <div>
+        <div class="font-tech font-semibold">FisioSmart</div>
+        <div class="text-xs text-slate-500 mt-2">Planos SaaS • Futurístico • Limpo</div>
+      </div>
+      <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
+        <a href="#" class="hover:text-slate-900 transition-colors">Privacidade</a>
+        <a href="#" class="hover:text-slate-900 transition-colors">Termos</a>
+        <a href="#" class="hover:text-slate-900 transition-colors">Suporte</a>
+      </div>
+      <div class="text-xs text-slate-500">© {{ now|date:"Y" }} FisioSmart. Todos os direitos reservados.</div>
+    </div>
+  </footer>
+</body>
+</html>
+
