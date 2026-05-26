@@ -12,23 +12,36 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+import os
+
+from django.core.exceptions import ImproperlyConfigured
+
+
+
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
+DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() in ("1", "true", "yes", "on")
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5_=0*-zk2#hdtk)^av)-j2)_a4q=v9f!fp3#kc-im0j1--#0hk'
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    # Para não travar localmente sem .env, faz fallback SOMENTE em desenvolvimento.
+    # Em produção/Render (DJANGO_DEBUG=false), exige SECRET_KEY via ambiente.
+    if DEBUG:
+        SECRET_KEY = "dev-only-secret-key"
+    else:
+        raise ImproperlyConfigured("SECRET_KEY não definida no ambiente (Render).")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
-# Application definition
+
+
+
+
+
+ALLOWED_HOSTS = [h.strip() for h in os.getenv("ALLOWED_HOSTS", "").split(",") if h.strip()] or ["*"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,11 +51,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'usuarios',
-    'django_q'
+    'django_q',
 ]
+
+AUTH_USER_MODEL = 'usuarios.Usuario'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -70,20 +86,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-
 # Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+import dj_database_url
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+database_url = os.getenv("DATABASE_URL")
+if database_url:
+    DATABASES = {
+        'default': dj_database_url.parse(database_url, conn_max_age=600),
     }
-}
-
-
-# Password validation
-# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -100,27 +117,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/6.0/topics/i18n/
-
 LANGUAGE_CODE = 'pt-BR'
-
 TIME_ZONE = 'America/Sao_Paulo'
-
 USE_I18N = True
-
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
-
-import os
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -129,17 +135,21 @@ from django.contrib.messages import constants
 
 MESSAGE_TAGS = {
     constants.SUCCESS: 'bg-green-50 text-green-700',
-    constants.ERROR: 'bg-red-50 text-red-700'
+    constants.ERROR: 'bg-red-50 text-red-700',
 }
 
-from decouple import config
-OPENAI_API_KEY = config('OPENAI_API_KEY')
+# Agno/Gemini
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
+
+# LanceDB persistente (Render)
+LANCEDB_BASE_PATH = os.getenv('LANCEDB_BASE_PATH', '/data/lancedb')
 
 Q_CLUSTER = {
     "name": "pythonando",
     "workers": 1,
-    "retry": 200,        
-    "timeout": 180,       
+    "retry": 200,
+    "timeout": 180,
     "queue_limit": 50,
     "orm": "default",
 }
+
