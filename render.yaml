@@ -14,8 +14,6 @@ services:
         value: "1"
       - key: WEB_CONCURRENCY
         value: "2"
-      - key: PORT
-        value: "${PORT}"
     disk:
       mountPath: /data
       sizeGB: 1
@@ -33,10 +31,6 @@ services:
         value: "False"
       - key: PYTHONUNBUFFERED
         value: "1"
-    disk:
-      mountPath: /data
-      sizeGB: 1
-    diskName: fisiosmart-data
     plan: starter
 
 databases:
@@ -45,4 +39,3 @@ databases:
     region: oregon
     plan: starter
     pgbouncer: true
-
