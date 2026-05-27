@@ -15,9 +15,9 @@ services:
       - key: WEB_CONCURRENCY
         value: "2"
     disk:
+      name: fisiosmart-data
       mountPath: /data
       sizeGB: 1
-    diskName: fisiosmart-data
     plan: starter
 
   - type: worker
@@ -35,7 +35,5 @@ services:
 
 databases:
   - name: fisiosmart-postgres
-    engine: postgresql
     region: oregon
     plan: starter
-    pgbouncer: true
